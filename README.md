@@ -14,3 +14,6 @@ Sending illegal data with any of these packets will cancel the packet and result
 
 Note the plugin is very "raw", there is absolutely no configuration available. 
 The plugin also offers no information for the server staff.
+
+## Dependency:
+- ProtocolLib
