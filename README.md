@@ -11,3 +11,6 @@ Currently validates following packets:
 - Window Click (that one might be a bit buggy due to how big the packet is)
 
 Sending illegal data with any of these packets will cancel the packet and result in a kick
+
+Note the plugin is very "raw", there is absolutely no configuration available. 
+The plugin also offers no information for the server staff.
