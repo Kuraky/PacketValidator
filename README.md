@@ -8,7 +8,7 @@ Currently validates following packets:
 - Held Item Slot
 - Look
 - Position Look
-- Window Click (that one might be a bit buggy due to how big the packet is)
+- Window Click
 
 Sending illegal data with any of these packets will cancel the packet and result in a punishment, specified in the config
 
