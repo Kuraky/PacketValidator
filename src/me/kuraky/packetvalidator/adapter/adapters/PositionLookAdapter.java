@@ -1,7 +1,7 @@
 package me.kuraky.packetvalidator.adapter.adapters;
 
 import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.events.PacketEvent;
+import com.comphenix.protocol.events.PacketContainer;
 import me.kuraky.packetvalidator.adapter.ValidatorAdapter;
 
 public class PositionLookAdapter extends ValidatorAdapter {
@@ -11,11 +11,8 @@ public class PositionLookAdapter extends ValidatorAdapter {
     }
 
     @Override
-    public void onPacketReceiving(PacketEvent event) {
-        float pitch = event.getPacket().getFloat().read(1);
-        if(Math.abs(pitch) > 90) {
-            System.out.println(pitch); //to remove
-            handleIllegalPacket(event);
-        }
+    protected boolean isLegal(PacketContainer packet) {
+        float pitch = packet.getFloat().read(1);
+        return !(Math.abs(pitch) > 90);
     }
 }

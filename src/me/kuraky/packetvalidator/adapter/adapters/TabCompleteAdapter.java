@@ -1,7 +1,7 @@
 package me.kuraky.packetvalidator.adapter.adapters;
 
 import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.events.PacketEvent;
+import com.comphenix.protocol.events.PacketContainer;
 import me.kuraky.packetvalidator.adapter.ValidatorAdapter;
 
 public class TabCompleteAdapter extends ValidatorAdapter {
@@ -11,8 +11,8 @@ public class TabCompleteAdapter extends ValidatorAdapter {
     }
 
     @Override
-    public void onPacketReceiving(PacketEvent event) {
-        int length = event.getPacket().getStrings().read(0).length();
-        if(length > 256 || length == 0) handleIllegalPacket(event);
+    protected boolean isLegal(PacketContainer packet) {
+        int length = packet.getStrings().read(0).length();
+        return length <= 256 && length != 0;
     }
 }

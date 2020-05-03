@@ -1,7 +1,7 @@
 package me.kuraky.packetvalidator.adapter.adapters;
 
 import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.events.PacketEvent;
+import com.comphenix.protocol.events.PacketContainer;
 import me.kuraky.packetvalidator.adapter.ValidatorAdapter;
 
 public class PickItemAdapter extends ValidatorAdapter {
@@ -11,8 +11,8 @@ public class PickItemAdapter extends ValidatorAdapter {
     }
 
     @Override
-    public void onPacketReceiving(PacketEvent event) {
-        int slot = event.getPacket().getIntegers().read(0);
-        if(slot < 9 || slot > 35) handleIllegalPacket(event);
+    protected boolean isLegal(PacketContainer packet) {
+        int slot = packet.getIntegers().read(0);
+        return slot >= 9 && slot <= 35;
     }
 }

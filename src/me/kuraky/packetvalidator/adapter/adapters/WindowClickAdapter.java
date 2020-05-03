@@ -1,10 +1,9 @@
 package me.kuraky.packetvalidator.adapter.adapters;
 
 import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.utility.MinecraftReflection;
-import me.kuraky.packetvalidator.PacketValidator;
 import me.kuraky.packetvalidator.adapter.ValidatorAdapter;
 
 public class WindowClickAdapter extends ValidatorAdapter {
@@ -14,8 +13,7 @@ public class WindowClickAdapter extends ValidatorAdapter {
     }
 
     @Override
-    public void onPacketReceiving(PacketEvent event) {
-        PacketContainer packet = event.getPacket();
+    protected boolean isLegal(PacketContainer packet) {
         int window = packet.getIntegers().read(0);
         int slot = packet.getIntegers().read(1);
         int button = packet.getIntegers().read(2);
@@ -26,23 +24,21 @@ public class WindowClickAdapter extends ValidatorAdapter {
             mode = packet.getSpecificModifier(clazz).read(0).toString();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            PacketValidator.getManager().removePacketListener(this);
-            return;
+            ProtocolLibrary.getProtocolManager().removePacketListener(this);
+            return true;
         }
 
         boolean legal = true;
 
-        switch(mode) { //validating buttons
+        switch(mode) {
             case "PICKUP":
-            case "QUICK_MOVE":
+            case "CLONE":
             case "THROW":
-                if(button != 0 && button != 1) legal = false;
+            case "QUICK_MOVE":
+                if(button < 0 || button > 7) legal = false;
                 break;
             case "SWAP":
                 if(button < 0 || button > 8) legal = false;
-                break;
-            case "CLONE":
-                if(button != 2) legal = false;
                 break;
             case "QUICK_CRAFT":
                 if(button < 0 || button > 10 || button == 3 || button == 7) legal = false;
@@ -52,22 +48,15 @@ public class WindowClickAdapter extends ValidatorAdapter {
             case "PICKUP_ALL":
                 if(button != 0) legal = false;
                 break;
-            default:
-                legal = false;
-                break;
         }
 
-        if(legal && slot != -999) { //validating slots
+        if(legal && slot != -999) {
             if(slot < -1) legal = false;
             else if(slot > 36) {
                 if(window == 0 && slot > 45) legal = false;
                 else if (window > 0 && slot > 89) legal = false;
             }
         }
-
-        if(!legal) {
-            System.out.println(slot + " " + button + " " + mode); //to remove
-            handleIllegalPacket(event);
-        }
+        return legal;
     }
 }

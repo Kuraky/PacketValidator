@@ -1,7 +1,17 @@
 main: me.kuraky.packetvalidator.PacketValidator
 name: PacketValidator
 version: 1.0.0
-description: "Checks whether packets sent by the player are violating the Minecraft protocol"
+description: Checks whether packets sent by the player are violating the Minecraft protocol
 depend: [ProtocolLib]
 api-version: 1.15
 author: Kuraky
+permissions:
+  packetvalidator.notify:
+    description: Allows seeing plugin notifications
+  packetvalidator.reload:
+    description: Allows reloading the plugin
+commands:
+  pvreload:
+    aliases: [packetvalidatorreload]
+    description: Reloads the plugin
+    permission: packetvalidator.reload

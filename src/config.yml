@@ -1,0 +1,47 @@
+#Kick/Ban message sent to the player once they send an invalid packet
+player-message: "&cInvalid packet"
+
+#Chat message sent to players with the permission "packetvalidator.notify"
+#This will only be displayed if the action for that packet is not set to none
+#Placeholders: %player% - player's nickname | %packet% - packet type
+admin-message: "&c%player% &etried to send an invalid packet: &c%packet%"
+
+#Settings for specific packets
+#Enabled: true/false - specifies whether that packet will be validated
+#Block: true/false - specifies whether the packet will be blocked
+#Action: "kick"/"ban"/"none" - specifies what will happen to the player, defaults to "kick" if a typo is made
+
+tab-complete:
+  enabled: true
+  block: true
+  action: "kick"
+
+chat:
+  enabled: true
+  block: true
+  action: "kick"
+
+pick-item:
+  enabled: true
+  block: true
+  action: "kick"
+
+held-item-slot:
+  enabled: true
+  block: true
+  action: "kick"
+
+look:
+  enabled: true
+  block: true
+  action: "kick"
+
+position-look:
+  enabled: true
+  block: true
+  action: "kick"
+
+window-click:
+  enabled: true
+  block: true
+  action: "kick"
