@@ -51,7 +51,7 @@ public class WindowClickAdapter extends ValidatorAdapter {
         }
 
         if(legal && slot != -999) {
-            if(slot < -1) legal = false;
+            if(slot < -1 || (slot == -1 && mode.equals("SWAP"))) legal = false;
             else if(slot > 36) {
                 if(window == 0 && slot > 45) legal = false;
                 else if (window > 0 && slot > 89) legal = false;
