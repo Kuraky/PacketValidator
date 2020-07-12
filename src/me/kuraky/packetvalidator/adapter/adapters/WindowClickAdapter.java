@@ -31,15 +31,6 @@ public class WindowClickAdapter extends ValidatorAdapter {
         boolean legal = true;
 
         switch(mode) {
-            case "PICKUP":
-            case "CLONE":
-            case "THROW":
-            case "QUICK_MOVE":
-                if(button < 0 || button > 7) legal = false;
-                break;
-            case "SWAP":
-                if(button < 0 || button > 8) legal = false;
-                break;
             case "QUICK_CRAFT":
                 if(button < 0 || button > 10 || button == 3 || button == 7) legal = false;
                 else if(button%2 == 0 && slot != -999) legal = false;
@@ -52,9 +43,9 @@ public class WindowClickAdapter extends ValidatorAdapter {
 
         if(legal && slot != -999) {
             if(slot < -1 || (slot == -1 && mode.equals("SWAP"))) legal = false;
-            else if(slot > 36) {
-                if(window == 0 && slot > 45) legal = false;
-                else if (window > 0 && slot > 89) legal = false;
+            else if(slot > 45) {
+                if(window == 0) legal = false;
+                else if (slot > 89) legal = false;
             }
         }
         return legal;
